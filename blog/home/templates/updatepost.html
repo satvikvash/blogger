@@ -1,0 +1,46 @@
+{% extends 'base.html' %} {% block content %}
+{% if user.is_authenticated %}
+  {% if user.id == post.author.id %}
+  <div class="bg-dark text-secondary px-4 py-5 text-center">
+    <div class="py-5">
+      <h1 class="display-5 fw-bold text-white">Edit Post</h1>
+    </div>
+  </div>
+  <div class="container form-group mt-3 pt-3">
+    <form method="POST">
+      {% csrf_token %}
+      {{ form.as_p }}
+  </div>
+  <div class="container mb-3 pb-3"><button class="btn btn-outline-success">Publish</button></div>
+  {% else %}
+  <div class="modal modal-alert position-static d-block bg-secondary py-5" tabindex="-1" role="dialog" id="modalChoice">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content rounded-3 shadow">
+        <div class="modal-body px-4 pt-4 pb-2 text-center border-bottom">
+          <h5 class="mb-0">Warning</h5>
+          <p class="mt-1 mb-3">You are not authenticated for this page.</p>
+          <div>
+            <a href="/"><button type="button" class="btn btn-outline-dark">Go To Homepage</button></a>
+          </div>
+      </div>
+    </div>
+  </div>
+  </div>
+  {% endif %}
+{% else %}
+<div class="modal modal-alert position-static d-block bg-secondary py-5" tabindex="-1" role="dialog" id="modalChoice">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content rounded-3 shadow">
+      <div class="modal-body px-4 pt-4 pb-2 text-center border-bottom">
+        <h5 class="mb-0">Warning</h5>
+        <p class="mt-1 mb-3">Plaese Login or Register to view this page.</p>
+        <div>
+          <a href="{% url 'login' %}"><button type="button" class="btn btn-outline-dark">Login</button></a>
+          <a href="{% url 'register' %}"><button type="button" class="btn btn-outline-dark">Register</button></a>
+        </div>
+    </div>
+  </div>
+</div>
+</div>
+{% endif %}
+{% endblock content %}

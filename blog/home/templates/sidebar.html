@@ -1,0 +1,29 @@
+{% block sidebar %}
+
+<div class="col-md-4">
+    <div class="position-sticky" style="top: 2rem;">
+        <div class="p-4 mb-3 bg-light rounded">
+          <h4 class=""><strong>Developer</strong></h4>
+          <p class=" mb-0">Hi, I am Satvik Vashisht, a web developer, competitive programmer and blogger.</p>
+          <a href="https://morning-coast-06742.herokuapp.com/" class="btn btn-outline-primary mt-3">Know More</a>
+        </div>
+        <div class="p-4 mb-3 bg-light rounded">
+          {% if user.is_authenticated %}
+          <h4 class="title"><strong>{{ user.username }}</strong></h4>
+          <a href="{% url 'addpost' %}"><button type="button" class="btn btn-outline-dark text-center">Add Post</button></a>
+          <a href="{% url 'logout' %}"><button type="button" class="btn btn-outline-dark text-center">Logout</button></a>
+          {% else %}
+          <a href="{% url 'login' %}"><button type="button" class="btn btn-outline-dark text-center">Login</button></a>
+          <a href="{% url 'register' %}"><button type="button" class="btn btn-outline-dark text-center">Register</button></a>
+          {% endif %}
+        </div>
+        <div class="p-4 mb-3 bg-light rounded">
+          <h4 class=""><strong>Categories</strong></h4>
+            {% for item in cat_menu %}
+            <h6 class=""><a href="{% url 'category' item %}" style="text-decoration: none;">{{ item }}</a></h6>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+{% endblock sidebar %}
